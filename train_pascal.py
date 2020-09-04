@@ -53,8 +53,9 @@ p['momentum'] = 0.9  # Momentum
 save_dir_root = os.path.join(os.path.dirname(os.path.abspath(__file__)))
 exp_name = os.path.dirname(os.path.abspath(__file__)).split('/')[-1]
 if resume_epoch == 0:
-    runs = sorted(glob.glob(os.path.join(save_dir_root, 'run_*')))
-    run_id = int(runs[-1].split('_')[-1]) + 1 if runs else 0
+    run_paths = glob.glob(os.path.join(save_dir_root, 'run_*'))
+    runs = sorted(int(path.split('_')[-1]) for path in run_paths)
+    run_id = runs[-1] + 1 if runs else 0
 else:
     run_id = 0
 save_dir = os.path.join(save_dir_root, 'run_' + str(run_id))
